@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from sqlalchemy import text
 
 from database import engine
 
@@ -26,7 +27,6 @@ def render_menu():
         return
 
     usuario = st.session_state["usuario"]
-
     perfil = usuario["perfil"]
 
     with st.sidebar:
@@ -40,9 +40,10 @@ def render_menu():
             width=180
         )
 
-        # ==========================
-        # FILIAL
-        # ==========================
+
+# ==========================
+# FILIAL
+# ==========================
 
         if perfil == "ADMIN":
 
@@ -59,23 +60,73 @@ def render_menu():
                     conn
                 )
 
+                filial_id_salva = conn.execute(
+                    text("""
+                        SELECT filial_padrao_id
+                        FROM usuarios
+                        WHERE id = :id
+                    """),
+                    {
+                        "id": usuario["id"]
+                    }
+                ).scalar()
+
             if not filiais.empty:
 
+                indice_padrao = 0
+
+                if filial_id_salva:
+
+                    filtro = filiais[
+                        filiais["id"] == filial_id_salva
+                    ]
+
+                    if not filtro.empty:
+
+                        indice_padrao = int(
+                            filtro.index[0]
+                        )
+
                 filial_nome = st.selectbox(
-                "🏢 Filial",
-                filiais["nome"].tolist(),
-                key="menu_filial"
-            )
+                    "🏢 Filial",
+                    filiais["nome"].tolist(),
+                    index=indice_padrao
+                )
 
-            filial_id = int(
-                filiais.loc[
-                    filiais["nome"] == filial_nome,
-                    "id"
-                ].iloc[0]
-            )
+                filial_id = int(
+                    filiais.loc[
+                        filiais["nome"] == filial_nome,
+                        "id"
+                    ].iloc[0]
+                )
 
-            st.session_state["filial_operacao"] = filial_id
-            st.session_state["filial_nome"] = filial_nome
+                filial_anterior = st.session_state.get(
+                    "filial_operacao"
+                )
+
+                st.session_state[
+                    "filial_operacao"
+                ] = filial_id
+
+                st.session_state[
+                    "filial_nome"
+                ] = filial_nome
+
+                if filial_anterior != filial_id:
+
+                    with engine.begin() as conn:
+
+                        conn.execute(
+                            text("""
+                                UPDATE usuarios
+                                SET filial_padrao_id = :filial
+                                WHERE id = :usuario
+                            """),
+                            {
+                                "filial": filial_id,
+                                "usuario": usuario["id"]
+                            }
+                        )
 
         else:
 
@@ -86,8 +137,6 @@ def render_menu():
             )
 
         st.markdown("---")
-
-
 
         # ==========================
         # HOME
@@ -214,7 +263,7 @@ def render_menu():
         if perfil == "ADMIN":
 
             st.caption(
-                f"🏢 {st.session_state.get('filial_nome', 'Todas')}"
+                f"🏢 {st.session_state.get('filial_nome', '')}"
             )
 
         st.caption(
@@ -233,5 +282,5 @@ def render_menu():
             st.session_state.clear()
 
             st.switch_page(
-                "pages/00_Login.py"
+                "pages/00_login.py"
             )

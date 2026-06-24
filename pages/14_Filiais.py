@@ -5,7 +5,7 @@ from sqlalchemy import text
 from database import engine
 from menu import render_menu
 
-render_menu()
+
 
 # =====================================
 # CSS
@@ -25,7 +25,7 @@ def carregar_css():
 
 carregar_css()
 
-
+render_menu()
 # =====================================
 # SEGURANÇA
 # =====================================

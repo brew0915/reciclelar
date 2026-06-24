@@ -6,10 +6,16 @@ from datetime import date, timedelta
 from io import BytesIO
 from menu import render_menu
 
-render_menu()
+
+
 
 def carregar_css():
-    with open("assets/style.css") as f:
+
+    with open(
+        "assets/style.css",
+        encoding="utf-8"
+    ) as f:
+
         st.markdown(
             f"<style>{f.read()}</style>",
             unsafe_allow_html=True
@@ -17,6 +23,7 @@ def carregar_css():
 
 carregar_css()
 
+render_menu()
 
 if "usuario" not in st.session_state:
     st.switch_page("pages/00_Login.py")

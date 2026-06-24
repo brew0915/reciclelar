@@ -6,6 +6,16 @@ import pandas as pd
 from sqlalchemy import text
 from menu import render_menu
 
+
+def carregar_css():
+    with open("assets/style.css", encoding="utf-8") as f:
+        st.markdown(
+            f"<style>{f.read()}</style>",
+            unsafe_allow_html=True
+        )
+
+carregar_css()
+
 st.set_page_config(
     page_title="Login",
     page_icon="🔐",
@@ -74,6 +84,10 @@ with col2:
 
             if perfil == "ADMIN":
 
+                st.session_state["filial_operacao"] = (
+                    usuario.get("filial_padrao_id")
+                )
+
                 st.switch_page("app.py")
 
             elif perfil == "OPERADOR":
@@ -95,7 +109,6 @@ with col2:
                 st.switch_page(
                     "pages/06_Dashboard.py"
                 )
-
         else:
 
             st.error(

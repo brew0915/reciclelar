@@ -20,110 +20,35 @@ def carregar_css():
 
 carregar_css()
 
-render_menu()
-
-
-# ==========================
-# CSS
-# ==========================
-
-
-
-with engine.connect() as conn:
-
-    filiais_df = pd.read_sql(
-        """
-        SELECT
-            id,
-            nome
-        FROM filiais
-        ORDER BY nome
-        """,
-        conn
-    )
-
-with engine.connect() as conn:
-
-    usuarios = pd.read_sql(
-        """
-        SELECT
-            u.id,
-            u.nome,
-            u.email,
-            u.perfil,
-
-            COALESCE(
-                f.nome,
-                'Todas as Filiais'
-            ) AS filial,
-
-            u.ativo
-
-        FROM usuarios u
-
-        LEFT JOIN filiais f
-            ON u.filial_id = f.id
-
-        ORDER BY u.nome
-        """,
-        conn
-    )
-
 if "usuario" not in st.session_state:
-    st.switch_page("pages/00_Login.py")
+    st.switch_page("pages/00_login.py")
     st.stop()
 
-perfil = st.session_state["usuario"]["perfil"]
+render_menu()
 
-# ADMIN escolhe a filial
-if perfil == "ADMIN":
+if st.session_state["usuario"]["perfil"] != "ADMIN":
+    st.error("Acesso permitido apenas para administradores.")
+    st.stop()
+
+try:
 
     with engine.connect() as conn:
 
-        filiais = pd.read_sql(
+        filiais_df = pd.read_sql(
             """
-            SELECT id, nome
+            SELECT
+                id,
+                nome
             FROM filiais
             ORDER BY nome
             """,
             conn
         )
 
-    filial_escolhida = st.sidebar.selectbox(
-        "🏢 Filial",
-        ["Todas"] + filiais["nome"].tolist(),
-        key="filial_admin"
-    )
+except Exception as e:
 
-    st.session_state["filial_ativa"] = filial_escolhida
-
-# OPERADOR e CONSULTA ficam presos à própria filial
-else:
-
-    st.session_state["filial_ativa"] = (
-        st.session_state["usuario"]["filial_id"]
-    )
-
-
-
-# ==========================
-# SEGURANÇA
-# ==========================
-
-if "usuario" not in st.session_state:
-
-    st.error("Faça login primeiro.")
+    st.error(f"Erro ao carregar filiais: {e}")
     st.stop()
-
-if st.session_state["usuario"]["perfil"] != "ADMIN":
-
-    st.error("Acesso permitido apenas para administradores.")
-    st.stop()
-
-
-
-
-
 
 
 # ==========================
