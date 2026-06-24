@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.pyc
+
+.env
+secrets.toml
+
+analise.duckdb
+*.db
+
+.vscode/
+
+.streamlit/secrets.toml
+
+*.zip
+*.sql
+*.bak
+teste.pygit status
+
+.idea/

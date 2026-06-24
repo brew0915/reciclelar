@@ -1,0 +1,323 @@
+/* =====================================================
+   RECICLE LAR - TEMA PROFISSIONAL
+   ===================================================== */
+
+/* Fundo principal */
+
+.stApp {
+    background-color: #f8fafc;
+}
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+section[data-testid="stSidebar"] {
+    background-color: #0f172a;
+    border-right: 1px solid #1e293b;
+}
+
+/* Títulos da sidebar */
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] label {
+    color: white !important;
+}
+
+/* Texto geral */
+
+section[data-testid="stSidebar"] span {
+    color: white !important;
+}
+
+/* =====================================================
+   SELECTBOX SIDEBAR
+   ===================================================== */
+/* Sidebar */
+
+section[data-testid="stSidebar"] {
+    background-color: #0f172a;
+}
+
+/* Títulos */
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span {
+    color: white;
+}
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+.stTextInput input,
+.stNumberInput input,
+.stDateInput input,
+textarea {
+
+    border-radius: 10px !important;
+    border: 1px solid #d1d5db !important;
+}
+
+/* =====================================================
+   BOTÕES
+   ===================================================== */
+
+.stButton button {
+
+    width: 100%;
+    height: 45px;
+
+    border-radius: 10px !important;
+
+    background-color: #16a34a !important;
+
+    color: white !important;
+
+    border: none !important;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.stButton button:hover {
+
+    background-color: #15803d !important;
+
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   CARDS KPI
+   ===================================================== */
+
+div[data-testid="stMetric"] {
+
+    background-color: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Valor KPI */
+
+div[data-testid="stMetricValue"] {
+
+    color: #0f172a !important;
+
+    font-weight: bold;
+}
+
+/* Label KPI */
+
+div[data-testid="stMetricLabel"] {
+
+    color: #64748b !important;
+}
+
+/* =====================================================
+   TABELAS
+   ===================================================== */
+
+[data-testid="stDataFrame"] {
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* =====================================================
+   EXPANDERS
+   ===================================================== */
+
+.streamlit-expanderHeader {
+
+    font-weight: 600;
+}
+
+/* =====================================================
+   ALERTAS
+   ===================================================== */
+
+.stSuccess {
+
+    border-radius: 10px;
+}
+
+.stWarning {
+
+    border-radius: 10px;
+}
+
+.stError {
+
+    border-radius: 10px;
+}
+
+/* =====================================================
+   TITULOS
+   ===================================================== */
+
+h1 {
+
+    color: #0f172a;
+
+    font-weight: 700;
+}
+
+h2 {
+
+    color: #0f172a;
+
+    font-weight: 600;
+}
+
+h3 {
+
+    color: #334155;
+
+    font-weight: 600;
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+
+    background: #e5e7eb;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #16a34a;
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #15803d;
+}
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+
+    color: #16a34a !important;
+}
+
+/* =====================================================
+   DASHBOARD CARDS GRANDES
+   ===================================================== */
+
+.card-reciclelar {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Logo */
+
+section[data-testid="stSidebar"] img {
+
+    display: block;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    margin-top: 10px;
+
+    margin-bottom: 15px;
+}
+
+/* Esconde menu automático Streamlit */
+
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* =====================================
+   ESCONDER MENU NATIVO DO STREAMLIT
+   ===================================== */
+
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* Remove cabeçalho da sidebar */
+
+[data-testid="stSidebarHeader"] {
+    display: none !important;
+}
+
+/* Logo sidebar */
+
+section[data-testid="stSidebar"] img {
+    max-width: 150px !important;
+    margin: auto;
+    display: block;
+}
+
+/* Esconde navegação automática */
+
+section[data-testid="stSidebarNav"] {
+    display: none;
+}
+
+/* Esconde botão recolher sidebar */
+
+[data-testid="collapsedControl"] {
+    display: none;
+}
+
+section[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+#MainMenu {
+    display: none !important;
+}
+
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+footer {
+    display: none !important;
+}
