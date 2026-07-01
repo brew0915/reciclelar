@@ -1,32 +1,27 @@
+import streamlit as st
 from sqlalchemy import text
 from database import engine
-import streamlit as st
 from datetime import date
 
 
 def validar_caixa_aberto(filial_id):
 
-    hoje = date.today()
-
     with engine.connect() as conn:
 
-        fechado = conn.execute(
+        caixa = conn.execute(
             text("""
-                SELECT COUNT(*)
-                FROM fechamento_caixa
-                WHERE filial_id = :filial_id
-                AND data_fechamento = :data
+                SELECT id
+                FROM caixa
+                WHERE filial_id = :filial
+                  AND data_caixa = CURRENT_DATE
+                  AND fechado_em IS NULL
+                LIMIT 1
             """),
             {
-                "filial_id": filial_id,
-                "data": hoje
+                "filial": filial_id
             }
         ).scalar()
 
-    if fechado > 0:
-
-        st.error(
-            "O caixa desta filial já foi fechado. Não é possível realizar novas movimentações."
-        )
-
+    if caixa is None:
+        st.error("O caixa da filial não está aberto. Faça a abertura de caixa antes de continuar.")
         st.stop()

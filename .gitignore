@@ -18,3 +18,5 @@ analise.duckdb
 teste.pygit status
 
 .idea/
+
+user_temporario.py
