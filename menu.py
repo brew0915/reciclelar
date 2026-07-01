@@ -107,6 +107,7 @@ def render_menu():
                 st.page_link("pages/05_Industrias.py", label="🏭 Indústrias")
                 st.page_link("pages/14_Filiais.py", label="🏢 Filiais da Rede")
                 st.page_link("pages/21_Tabela_Precos.py", label="💲 Tabela de Preços")
+                st.page_link("pages/10_Estoque_Minimo.py", label="⚠️ Estoque Mínimo")
 
         # --- GRUPO: FINANCEIRO ---
         if perfil == "ADMIN":
