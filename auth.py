@@ -4,13 +4,13 @@ from database import engine
 
 def autenticar(email, senha):
     """
-    Autentica um usuário validando o e-mail e a senha criptografada com bcrypt.
-    Retorna o dicionário com os dados do usuário se bem-sucedido, ou None caso contrário.
+    Autentica um usuário validando o e-mail, status ativo e a senha criptografada.
+    Inclui o campo 'perfil' no retorno para controle de acesso nas páginas.
     """
     with engine.connect() as conn:
         result = conn.execute(
             text("""
-                SELECT id, nome, email, senha, ativo
+                SELECT id, nome, email, senha, ativo, perfil
                 FROM usuarios
                 WHERE email = :email
                 AND ativo = true
