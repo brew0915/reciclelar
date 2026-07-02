@@ -92,7 +92,7 @@ def render_menu():
 
         # --- GRUPO: OPERAÇÃO ---
         with st.expander("🏢 Módulos de Operação", expanded=True):
-            st.page_link("pages/03_Compras.py", label="🛒 Compras / Suprimentos")
+            st.page_link("pages/03_Compras.py", label="🛒 Compras")
             if perfil == "ADMIN":
                 st.page_link("pages/04_Vendas.py", label="💰 Vendas Comerciais")
             st.page_link("pages/09_Estoque.py", label="📦 Controle de Estoque")
