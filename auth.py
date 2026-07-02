@@ -1,30 +1,15 @@
-import bcrypt
 from sqlalchemy import text
-from database import engine
 
 def autenticar(email, senha):
-
-    with engine.connect() as conn:
-
-        usuario = conn.execute(
+    # Se 'conn' veio de st.connection("banco", type="sql")
+    # O correto é abrir um escopo de conexão do SQLAlchemy:
+    with conn.connect() as session:
+        result = session.execute(
             text("""
-                SELECT *
-                FROM usuarios
-                WHERE email = :email
-                AND ativo = true
+                SELECT * FROM usuarios 
+                WHERE email = :email AND senha = :senha
             """),
-            {
-                "email": email
-            }
+            {"email": email, "senha": senha}
         ).mappings().first()
-
-    if not usuario:
-        return None
-
-    if bcrypt.checkpw(
-        senha.encode(),
-        usuario["senha"].encode()
-    ):
-        return usuario
-
-    return None
+        
+    return result
