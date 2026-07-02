@@ -96,7 +96,7 @@ def render_menu():
             if perfil == "ADMIN":
                 st.page_link("pages/04_Vendas.py", label="💰 Vendas Comerciais")
             st.page_link("pages/09_Estoque.py", label="📦 Controle de Estoque")
-            st.page_link("pages/11_Abrir_Caixa.py", label="💵 Frente de Caixa")
+            st.page_link("pages/11_Abrir_Caixa.py", label="💵 Abertura de Caixa")
             st.page_link(
                 "pages/15_Fechamento_Caixa.py", label="🔒 Fechamento de Caixa"
             )
