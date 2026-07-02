@@ -30,10 +30,14 @@ def render_menu():
         # 2. SELETOR DE FILIAL OPERACIONAL
         # =====================================
         if perfil == "ADMIN":
-            with engine.connect() as conn:
-                filiais = pd.read_sql(
-                    "SELECT id, nome FROM filiais ORDER BY nome", conn
-                )
+            # Garante abertura, fechamento e rollback automático em caso de falhas
+            with engine.begin() as conn:
+                # Busca de forma segura mapeando o resultado para o Pandas
+                result_filiais = conn.execute(
+                    text("SELECT id, nome FROM filiais ORDER BY nome")
+                ).mappings().all()
+                filiais = pd.DataFrame(result_filiais)
+
                 filial_id_salva = conn.execute(
                     text(
                         "SELECT filial_padrao_id FROM usuarios WHERE id = :id"
